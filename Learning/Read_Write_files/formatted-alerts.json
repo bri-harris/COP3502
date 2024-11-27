@@ -1,0 +1,6204 @@
+{
+	"name": "Subscriber Alerts 24",
+	"description": "2024 Audit",
+	"version": 1,
+	"healthRuleMembers": [
+		{
+			"model": {
+				"id": 5233,
+				"name": "Xerxes Subscriber - AWS Prod - Internal Business Transaction Health",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-context/contextdata",
+							"/xerxes-ctrl/keys",
+							"/xerxes-ctrl/oauth",
+							"/xerxes-ctrl/redirect",
+							"/xerxes-ctrl/validate",
+							"/xerxes-ctrl/validateError",
+							"/xerxes-jwt/init",
+							"/xerxes-jwt/oauth",
+							"/xerxes-jwt/openid",
+							"/xerxes-jwt/refresh",
+							"/xerxes-saml/init",
+							"/xerxes-saml/refresh",
+							"/xerxes-store/token",
+							"_APPDYNAMICS_DEFAULT_TX_"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Critical Avg Response time",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 6,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev2: High Avg Response time",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 3,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							},
+							{
+								"name": "Sev3: Low Avg Respose time",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 2,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev1: Critical Error Rate",
+								"shortName": "D",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev2: High Error Rate",
+								"shortName": "E",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 35
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							},
+							{
+								"name": "Sev3: Medium Error Rate",
+								"shortName": "F",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "CUSTOM",
+						"conditionExpression": "(A AND B) OR (C AND D AND E)",
+						"conditions": [
+							{
+								"name": "Average Response Time (ms) Baseline Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 2,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Calls per Minute Condition",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Calls per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 100
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Errors per Minute Baseline Condition",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 2,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Errors per Minute Condition",
+								"shortName": "D",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "SUM",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 5
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Calls per Minute Condition",
+								"shortName": "E",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Calls per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5235,
+				"name": "Xerxes Subscriber - AWS Prod - NODES HEALTH - Memory utilization is too high",
+				"enabled": true,
+				"useDataFromLastNMinutes": 1,
+				"waitTimeAfterViolation": 1,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "ALL_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Hardware Resources|Memory|Used % Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Hardware Resources|Memory|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Hardware Resources|Memory|Used % Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Hardware Resources|Memory|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 75
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5236,
+				"name": "Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM Heap utilization is too high",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "JAVA_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Memory:Heap|Used % Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Memory:Heap|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 90
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Memory:Heap|Used % Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Memory:Heap|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 75
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5237,
+				"name": "Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM Garbage Collection Time is too high",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "JAVA_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Garbage Collection|GC Time Spent Per Min (ms) Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Garbage Collection|GC Time Spent Per Min (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 45000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Garbage Collection|GC Time Spent Per Min (ms) Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Garbage Collection|GC Time Spent Per Min (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5238,
+				"name": "Xerxes Subscriber - AWS Prod - Nodes Health - CLR Garbage Collection Time is too high",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "DOT_NET_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "CLR|Garbage Collection|GC Time Spent (%) Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "CLR|Garbage Collection|GC Time Spent (%)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 75
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "CLR|Garbage Collection|GC Time Spent (%) Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "CLR|Garbage Collection|GC Time Spent (%)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5239,
+				"name": "Network-Host : Packet drops too high",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "ADVANCED_NETWORK",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "ALL_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Packet Drop Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "({Packets Dropped Per Sec} / {Packets Received Per Sec}) * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Packets Dropped Per Sec",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Advanced Network|Host|PCAP|Interface|Packets Dropped Per Sec"
+										},
+										{
+											"variableName": "Packets Received Per Sec",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Advanced Network|Host|PCAP|Interface|Packets Received Per Sec"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 5
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Packet Drop Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "({Packets Dropped Per Sec} / {Packets Received Per Sec}) * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Packets Dropped Per Sec",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Advanced Network|Host|PCAP|Interface|Packets Dropped Per Sec"
+										},
+										{
+											"variableName": "Packets Received Per Sec",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Advanced Network|Host|PCAP|Interface|Packets Received Per Sec"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 3
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5330,
+				"name": "AWS Prod - JWT Service 95th Percentage Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-jwt/oauth",
+							"/xerxes-jwt/init",
+							"/xerxes-jwt/openid",
+							"/xerxes-jwt/refresh"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 9000
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 7500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 6500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": null
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5331,
+				"name": "AWS Prod - CTRL Oauth Servie ErrorRate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-ctrl/oauth"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Critical",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 4,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 3,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3: Low",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 2,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev4: Warning",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 1,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5332,
+				"name": "AWS Prod - JWT OAuth service ErrorRate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 20,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-jwt/oauth"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Critical",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 7,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 6,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3: Low",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 5,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 20
+							},
+							{
+								"name": "Sev4: Warning",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 4,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 30
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5333,
+				"name": "Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM / Heap / CPU / Hardware",
+				"enabled": true,
+				"useDataFromLastNMinutes": 15,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "ALL_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Memory:Heap|Used % CRITICAL",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "MINIMUM",
+									"metricPath": "JVM|Memory:Heap|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 85
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "JVM|Process CPU Usage%",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "MINIMUM",
+									"metricPath": "JVM|Process CPU Usage %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 85
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "JVM|Memory:Heap|Used %",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Memory:Heap|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 75
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "JVM|Memory:Non-Heap|Used %",
+								"shortName": "D",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Memory:Non-Heap|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 75
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Memory:Heap|Used % Warning ⚠️",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Memory:Heap|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 65
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5334,
+				"name": "AWS Prod - JWT - Test Alert with Multi Conditions",
+				"enabled": false,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-jwt/oauth"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "CUSTOM",
+						"conditionExpression": "( A AND B ) OR C",
+						"conditions": [
+							{
+								"name": "Calls per Min",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Calls per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 4,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Errors per minute",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 4,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Response Load",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 4,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "CUSTOM",
+						"conditionExpression": "( A AND B ) OR C",
+						"conditions": [
+							{
+								"name": "Calls per Min",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Calls per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 1,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Errors per minute",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 1,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Response Load",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 1,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5335,
+				"name": "Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM Garbage Collection Time Usage",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "JAVA_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Garbage Collection|GC Time Spent Per Min (ms) Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Garbage Collection|GC Time Spent Per Min (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 45000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Condition 1",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Garbage Collection|GC Time Spent Per Min (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5336,
+				"name": "Xerxes Subscriber - AWS Prod - NODES HEALTH - CPU Utilization Usage",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "ALL_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Hardware Resources|CPU|%Busy Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Hardware Resources|CPU|%Busy",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 90
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Hardware Resources|CPU|%Busy Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Hardware Resources|CPU|%Busy",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 75
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5337,
+				"name": "Xerxes Subscriber - AWS Prod - NODES HEALTH -  Memory Utilization is too High",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "ALL_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Hardware Resources|Memory|Used % Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Hardware Resources|Memory|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 90
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Hardware Resources|Memory|Used % Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Hardware Resources|Memory|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 75
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5338,
+				"name": "Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM Heap utilization Usage",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "TIER_NODE_HARDWARE",
+					"affectedEntities": {
+						"tierOrNode": "NODE_AFFECTED_ENTITIES",
+						"typeofNode": "JAVA_NODES",
+						"affectedNodes": {
+							"affectedNodeScope": "ALL_NODES"
+						}
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Memory:Heap|Used % Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Memory:Heap|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 90
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "JVM|Memory:Heap|Used % Condition",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "JVM|Memory:Heap|Used %",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 75
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5339,
+				"name": "Xerxes Subscriber - AWS Prod - HTTP 4XX Errors",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "ERRORS",
+					"affectedErrors": {
+						"errorScope": "SPECIFIC_ERRORS",
+						"errors": [
+							"HTTP Error Code : 400",
+							"HTTP Error Code : 400",
+							"HTTP Error Code : 400",
+							"HTTP Error Code : 403",
+							"HTTP Error Code : 400",
+							"Unauthorized : 401"
+						],
+						"tiers": [
+							"Xerxes-Sub-Ctrl",
+							"Xerxes-App-Context",
+							"Xerxes-Sub-Jwt",
+							"Xerxes-App-Context",
+							"Xerxes-Sub-Saml",
+							"Xerxes-App-Context"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1 : Critical",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 55
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							},
+							{
+								"name": "Sev 2 : High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "ANY_NODE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "ANY_NODE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5341,
+				"name": "Xerxes Subscriber - AWS Prod - Databases & Remote Services - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 20,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "ALL_BACKENDS"
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {TotalRequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "TotalRequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 70
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev2 : High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {TotalRequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "TotalRequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3 : Low",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {TotalRequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "TotalRequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5342,
+				"name": "Xerxes Subscriber - AWS Prod - Databases & Remote Services -  Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 20,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "ALL_BACKENDS"
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Severe Database/Remote Services Avg. Response Time",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Daily Trend - Last 30 days",
+										"compareValue": 7,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev2 : High Database/Remote Services Avg. Response Time",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Daily Trend - Last 30 days",
+										"compareValue": 6,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev3 : Medium Database/Remote Services Avg. Response Time",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Daily Trend - Last 30 days",
+										"compareValue": 4,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3 : Low  Database/Remote Services Avg. Response Time",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Daily Trend - Last 30 days",
+										"compareValue": 3,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5343,
+				"name": "AWS Prod Error Rate - All Error Codes",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "ERRORS",
+					"affectedErrors": {
+						"errorScope": "ALL_ERRORS"
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major -Error Rate - All Error Codes",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {TotalErrors} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "TotalErrors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Number of Errors"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 80
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev2: High -Error Rate - All Error Codes",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {TotalErrors} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "TotalErrors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Number of Errors"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "ANY_NODE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3: Low -Error Rate - All Error Codes",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {TotalErrors} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "TotalErrors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Number of Errors"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "ANY_NODE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5344,
+				"name": "AWS Prod - OAuth Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 20,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-ctrl/oauth",
+							"/xerxes-jwt/oauth"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Daily Trend - Last 30 days",
+										"compareValue": 7,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Daily Trend - Last 30 days",
+										"compareValue": 6,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Daily Trend - Last 30 days",
+										"compareValue": 5,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Daily Trend - Last 30 days",
+										"compareValue": 3,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5351,
+				"name": "Xerxes Subscriber - AWS Prod - HTTP 50X Errors",
+				"enabled": true,
+				"useDataFromLastNMinutes": 3,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "ERRORS",
+					"affectedErrors": {
+						"errorScope": "SPECIFIC_ERRORS",
+						"errors": [
+							"BadGateway",
+							"BadGateway",
+							"HTTP Error Code : 501",
+							"HTTP Error Code : 501",
+							"HTTP Error Code : 501"
+						],
+						"tiers": [
+							"Xerxes-Sub-Ctrl",
+							"Xerxes-Sub-Jwt",
+							"Xerxes-Sub-Ctrl",
+							"Xerxes-Sub-Jwt",
+							"Xerxes-Sub-Saml"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1 :",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 55
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev2:",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 1
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "ANY_NODE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 1
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "ANY_NODE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5356,
+				"name": "Xerxes Subscriber - AWS Prod - CIMA - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 15,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"oauth.xfinity.com:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 6900
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 5500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Low / Noncritical - ResponseTime Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 3000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev5: Low / Noncritical - ResponseTime Warning",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1200
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5358,
+				"name": "Xerxes Subscriber - AWS Prod - ROGERS - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 15,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"rogers-prd.transmit.security:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 10000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 8500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 7500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: low",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 2500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev5: Warning",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5359,
+				"name": "Xerxes Subscriber - AWS Prod - IandC - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 15,
+				"waitTimeAfterViolation": 1,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"identity-services.apps.cloud.comcast.net:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 4500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 3500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev 3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 2500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev4: Low / Noncritical",
+								"shortName": "D",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1800
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev5: Low / Noncritical - ResponseTime Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": true,
+								"violationStatusOnNoData": "UNHEALTHY",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1200
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Noncritical - ResponseTime Warning",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": true,
+								"violationStatusOnNoData": "UNHEALTHY",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 700
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5361,
+				"name": "Xerxes Subscriber - AWS Prod - WEBSEC - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"websec.cable.comcast.com:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 2500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 25
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1600
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 30
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5362,
+				"name": "Xerxes Subscriber - AWS Prod - SAT - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 15,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"sat-prod.codebig2.net:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1000
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 800
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 600
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 400
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5363,
+				"name": "Xerxes Subscriber - AWS Prod - SHAW - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"signin.shaw.ca:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 10000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 8500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 6500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							},
+							{
+								"name": "Sev4: Low",
+								"shortName": "D",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 5500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5365,
+				"name": "Xerxes Subscriber - AWS Prod - CIMA - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 20,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"oauth.xfinity.com:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 40
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 35
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev 3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5366,
+				"name": "Xerxes Subscriber - AWS Prod - COX CAMPUS - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"login.cox.com:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 80
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 18
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 14
+							},
+							{
+								"name": "Sev 3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 35
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {TotalRequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "TotalRequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5369,
+				"name": "Xerxes Subscriber - AWS Prod - IandC - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 15,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"identity-services.apps.cloud.comcast.net:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 40
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 35
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev 3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 25
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev4: Low / Noncritical",
+								"shortName": "D",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev5: Low / Noncritical - ErrorRate Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 3
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Noncritical - ErrorRate Warning",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5370,
+				"name": "Xerxes Subscriber - AWS Prod - ROGERS - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"rogers-prd.transmit.security:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 2500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 20
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 18
+							},
+							{
+								"name": "Sev 3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 3500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 13
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {TotalRequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "TotalRequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5371,
+				"name": "Xerxes Subscriber - AWS Prod - SAT - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 3,
+				"waitTimeAfterViolation": 3,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"sat-prod.codebig2.net:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 80
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev 3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 35
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5372,
+				"name": "Xerxes Subscriber - AWS Prod - SHAW - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"signin.shaw.ca:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 80
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 1
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": -1
+							},
+							{
+								"name": "Sev 3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 35
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 1
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5375,
+				"name": "Xerxes Subscriber - AWS Prod - WEBSEC - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 3,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BACKENDS",
+					"affectedBackends": {
+						"backendScope": "SPECIFIC_BACKENDS",
+						"backends": [
+							"websec.cable.comcast.com:443"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 80
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev 2 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev 3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 35
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": null
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": null
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5378,
+				"name": "Xerxes Subscriber - AWS Prod  - JWT -  ConnectTimeoutException",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "ERRORS",
+					"affectedErrors": {
+						"errorScope": "SPECIFIC_ERRORS",
+						"errors": [
+							"ResourceAccessException : ConnectTimeoutException : SocketTimeoutException"
+						],
+						"tiers": [
+							"Xerxes-Sub-Jwt"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Critical",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": null
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5379,
+				"name": "Xerxes Subscriber - AWS Prod - JWT - HttpClientErrorException$BadRequest",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 20,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "ERRORS",
+					"affectedErrors": {
+						"errorScope": "SPECIFIC_ERRORS",
+						"errors": [
+							"HttpClientErrorException"
+						],
+						"tiers": [
+							"Xerxes-Sub-Jwt"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Critical",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Number of Errors",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3: Low",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Number of Errors",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5380,
+				"name": "Xerxes Subscriber - AWS Prod - CTRL - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 20,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "BUSINESS_TRANSACTIONS_IN_SPECIFIC_TIERS",
+						"specificTiers": [
+							"Xerxes-Sub-Ctrl"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 80
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev2 : High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 40
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Low",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 10
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5381,
+				"name": "Xerxes Subscriber - AWS Prod - JWT - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "BUSINESS_TRANSACTIONS_IN_SPECIFIC_TIERS",
+						"specificTiers": [
+							"Xerxes-Sub-Jwt"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 70
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev2 : High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 40
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 70
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} *100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 40
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5382,
+				"name": "Xerxes Subscriber - AWS Prod - SAML - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "BUSINESS_TRANSACTIONS_IN_SPECIFIC_TIERS",
+						"specificTiers": [
+							"Xerxes-Sub-Saml"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 70
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev2 : High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 20
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 70
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 50
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5383,
+				"name": "Xerxes Subscriber - AWS Prod - STORE - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "BUSINESS_TRANSACTIONS_IN_SPECIFIC_TIERS",
+						"specificTiers": [
+							"Xerxes-Sub-Store"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 70
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev2 : High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 40
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev3 : Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 2
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3: Low",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 30
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev4: Warning",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{Errors} / {Totalrequests} * 100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "Errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "Totalrequests",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5384,
+				"name": "Xerxes Subscriber - AWS Prod - JWT - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-jwt/oauth",
+							"/xerxes-jwt/init",
+							"/xerxes-jwt/openid",
+							"/xerxes-jwt/refresh"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 6500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 5500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 4500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 2500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5388,
+				"name": "Xerxes Subscriber - AWS Prod - CTRL - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-ctrl/keys",
+							"/xerxes-ctrl/oauth",
+							"/xerxes-ctrl/redirect",
+							"/xerxes-ctrl/validate",
+							"/xerxes-ctrl/validateError",
+							"_APPDYNAMICS_DEFAULT_TX_"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 5000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 4200
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 3500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 2000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5389,
+				"name": "Xerxes Subscriber - AWS Prod - SAML - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-saml/init",
+							"/xerxes-saml/refresh"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 100
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 80
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 70
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev4: Low",
+								"shortName": "D",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 60
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": null
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5390,
+				"name": "Xerxes Subscriber - AWS Prod - STORE - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-store/token"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 300
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 250
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 200
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev5: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 150
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5399,
+				"name": "Xerxes Subscriber - AWS Prod - CTRL - 95th Percentile Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"_APPDYNAMICS_DEFAULT_TX_",
+							"/xerxes-ctrl/oauth",
+							"/xerxes-ctrl/keys",
+							"/xerxes-ctrl/redirect",
+							"/xerxes-ctrl/validate"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Critical",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 7,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 6,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev3: Low",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 4,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 10
+							},
+							{
+								"name": "Sev4: Warning",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "BASELINE_TYPE",
+										"baselineCondition": "GREATER_THAN_BASELINE",
+										"baselineName": "Default Baseline",
+										"compareValue": 3,
+										"baselineUnit": "STANDARD_DEVIATIONS"
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 20
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5400,
+				"name": "Xerxes Subscriber - AWS Prod - SAML - 95th Percentile Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 20,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-saml/init",
+							"/xerxes-saml/refresh"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 10500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 5500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 4500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev4: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 3500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 15
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5401,
+				"name": "Xerxes Subscriber - AWS Prod - STORE - 95th Percentile Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 20,
+				"waitTimeAfterViolation": 10,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-store/token"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev1: Major",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 4000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 3200
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 0
+							},
+							{
+								"name": "Sev3: Medium",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 2500
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev4: Low",
+								"shortName": "D",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1800
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev5: Warning",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "95th Percentile Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 1500
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 10
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5450,
+				"name": "Xerxes Subscriber - AWS Prod - App Context - Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 15,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-context/contextdata"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev 2: High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{errors}/{calls}*100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "calls",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							},
+							{
+								"name": "Sev 1: Critical",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{errors}/{calls}*100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "calls",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev 3 : Minor",
+								"shortName": "C",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "METRIC_EXPRESSION",
+									"metricExpression": "{errors}/{calls}*100",
+									"metricExpressionVariables": [
+										{
+											"variableName": "errors",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Errors per Minute"
+										},
+										{
+											"variableName": "calls",
+											"metricAggregateFunction": "VALUE",
+											"metricPath": "Calls per Minute"
+										}
+									],
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 10
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 3
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5451,
+				"name": "Xerxes Subscriber - AWS Prod - App Context - Average Response Time",
+				"enabled": true,
+				"useDataFromLastNMinutes": 15,
+				"waitTimeAfterViolation": 5,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-context/contextdata"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ANY",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev 2 : High",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 15000
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "Sev 1 : Critical",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 20000
+									}
+								},
+								"triggerEnabled": false,
+								"minimumTriggers": 7
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Sev 3 : Minor",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Average Response Time (ms)",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 10000
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					}
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		},
+		{
+			"model": {
+				"id": 5568,
+				"name": "Xerxes Subscriber Refresh Flow Error Rate",
+				"enabled": true,
+				"useDataFromLastNMinutes": 30,
+				"waitTimeAfterViolation": 30,
+				"scheduleName": "Always",
+				"affects": {
+					"affectedEntityType": "BUSINESS_TRANSACTION_PERFORMANCE",
+					"affectedBusinessTransactions": {
+						"businessTransactionScope": "SPECIFIC_BUSINESS_TRANSACTIONS",
+						"businessTransactions": [
+							"/xerxes-ctrl/refresh",
+							"/xerxes-saml/refresh",
+							"/xerxes-jwt/refresh"
+						]
+					}
+				},
+				"evalCriterias": {
+					"criticalCriteria": {
+						"conditionAggregationType": "ALL",
+						"conditionExpression": null,
+						"conditions": [
+							{
+								"name": "Critical",
+								"shortName": "A",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 250
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							},
+							{
+								"name": "High",
+								"shortName": "B",
+								"evaluateToTrueOnNoData": false,
+								"violationStatusOnNoData": "UNKNOWN",
+								"evalDetail": {
+									"evalDetailType": "SINGLE_METRIC",
+									"metricAggregateFunction": "VALUE",
+									"metricPath": "Errors per Minute",
+									"metricEvalDetail": {
+										"metricEvalDetailType": "SPECIFIC_TYPE",
+										"compareCondition": "GREATER_THAN_SPECIFIC_VALUE",
+										"compareValue": 200
+									}
+								},
+								"triggerEnabled": true,
+								"minimumTriggers": 5
+							}
+						],
+						"evalMatchingCriteria": {
+							"matchType": "AVERAGE",
+							"value": null
+						}
+					},
+					"warningCriteria": null
+				}
+			},
+			"memberType": "HEALTH_RULE"
+		}
+	],
+	"policyMembers": [
+		{
+			"model": {
+				"id": 625,
+				"name": "Xerxes Subscriber AWS Prod Application Services Alerts",
+				"enabled": true,
+				"executeActionsInBatch": true,
+				"frequency": null,
+				"actions": [
+					{
+						"actionName": "xerxes-subscriber-ale-aaaaietoq6f2g4zwn4au7qcx4a@comcast.org.slack.com",
+						"actionType": "EMAIL",
+						"notes": "",
+						"emailVersion": 1
+					}
+				],
+				"events": {
+					"healthRuleEvents": {
+						"healthRuleEventTypes": [
+							"HEALTH_RULE_OPEN_WARNING",
+							"HEALTH_RULE_OPEN_CRITICAL",
+							"HEALTH_RULE_UPGRADED"
+						],
+						"healthRuleScope": {
+							"healthRuleScopeType": "SPECIFIC_HEALTH_RULES",
+							"healthRules": [
+								"Xerxes Subscriber - AWS Prod - Nodes Health - CLR Garbage Collection Time is too high",
+								"Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM Heap utilization is too high",
+								"Xerxes Subscriber - AWS Prod - NODES HEALTH - Memory utilization is too high",
+								"AWS Prod - OAuth Average Response Time",
+								"Xerxes Subscriber - AWS Prod - Databases & Remote Services - Error Rate",
+								"Xerxes Subscriber - AWS Prod - Databases & Remote Services -  Average Response Time",
+								"Xerxes Subscriber - AWS Prod - Internal Business Transaction Health",
+								"Xerxes Subscriber - AWS Prod - HTTP 4XX Errors",
+								"Xerxes Subscriber - AWS Prod - NODES HEALTH - CPU Utilization Usage",
+								"Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM / Heap / CPU / Hardware",
+								"Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM Garbage Collection Time Usage",
+								"Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM Heap utilization Usage",
+								"Xerxes Subscriber - AWS Prod - NODES HEALTH -  Memory Utilization is too High",
+								"AWS Prod - JWT Service 95th Percentage Response Time",
+								"Xerxes Subscriber - AWS Prod - HTTP 50X Errors",
+								"Xerxes Subscriber - AWS Prod - CTRL - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - CTRL - Error Rate",
+								"Xerxes Subscriber - AWS Prod - CIMA - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - CIMA - Error Rate",
+								"Xerxes Subscriber - AWS Prod - COX CAMPUS -  Average Response Time",
+								"Xerxes Subscriber - AWS Prod - COX CAMPUS - Error Rate",
+								"Xerxes Subscriber - AWS Prod - COX - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - COX - Error Rate",
+								"Xerxes Subscriber - AWS Prod - DATABASES -  Average Response Time",
+								"Xerxes Subscriber - AWS Prod - DATABASES - Error Rate",
+								"Xerxes Subscriber - AWS Prod - IandC - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - IandC - Error Rate",
+								"Xerxes Subscriber - AWS Prod - ROGERS - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - ROGERS - Error Rate",
+								"Xerxes Subscriber - AWS Prod - SAT - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - SAT - Error Rate",
+								"Xerxes Subscriber - AWS Prod - SHAW - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - SHAW - Error Rate",
+								"Xerxes Subscriber - AWS Prod - SKY ITALIA - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - SKY ITALIA - Error Rate",
+								"Xerxes Subscriber - AWS Prod - VIDEOTRON - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - VIDEOTRON - Error Rate",
+								"Xerxes Subscriber - AWS Prod - WEBSEC - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - WEBSEC - Error Rate",
+								"Xerxes Subscriber - AWS Prod - XBO - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - XBO - Error Rate",
+								"Xerxes Subscriber - AWS Prod - JWT - HttpClientErrorException$BadRequest",
+								"Xerxes Subscriber - AWS Prod - NODES HEALTH - JVM Garbage Collection Time is too high",
+								"AWS Prod - JWT - Test Alert with Multi Conditions",
+								"AWS Prod - JWT OAuth service ErrorRate",
+								"Xerxes Subscriber - AWS Prod - JWT - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - JWT - Error Rate",
+								"Xerxes Subscriber - AWS Prod - SAML - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - SAML - Error Rate",
+								"Xerxes Subscriber - AWS Prod - STORE - Average Response Time",
+								"Xerxes Subscriber - AWS Prod - STORE - Error Rate",
+								"Xerxes Subscriber - AWS Prod  - JWT -  ConnectTimeoutException"
+							]
+						}
+					},
+					"otherEvents": [
+
+					],
+					"anomalyEvents": [
+
+					],
+					"customEvents": [
+
+					]
+				},
+				"selectedEntities": {
+					"selectedEntityType": "ANY_ENTITY"
+				}
+			},
+			"memberType": "POLICY"
+		}
+	]
+}
